@@ -56,13 +56,13 @@ DROP TABLE IF EXISTS Patient;
 
 	CREATE INDEX p_fname ON Patient(first_name);
 	CREATE INDEX p_lname ON Patient(last_name);
+	CREATE INDEX p_province ON Patient(province);
 	CREATE INDEX p_city ON Patient(city);
 
-	CREATE INDEX d_fname ON Doctor(first_name);
-	CREATE INDEX p_lname ON Doctor(last_name);
 	CREATE INDEX d_gender ON Doctor(gender);
 	CREATE INDEX d_city ON Doctor(city);
 	CREATE INDEX d_postal ON Doctor(postal_code);
+	CREATE INDEX d_licensed ON Doctor(licensed);
 
 	CREATE INDEX review_date ON Review(review_date);
 	CREATE INDEX star_rating ON Review(star_rating);
