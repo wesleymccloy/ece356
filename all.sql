@@ -312,7 +312,7 @@ BEGIN
 		INSERT INTO Review (patient, doctor, star_rating, comments, review_date)
 		VALUES (patient_alias, doctor_alias, FLOOR(star_rating * 2)/2, comments, NOW());
 	END IF;
-	COMMIT;
+	-- COMMIT;
 
 END @@
 DELIMITER ;
