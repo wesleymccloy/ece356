@@ -76,11 +76,11 @@ DELIMITER @@
 CREATE PROCEDURE CreatePatient
 (IN alias VARCHAR(20), IN province VARCHAR(30), IN city VARCHAR(50), IN first_name VARCHAR(100), IN last_name VARCHAR(100), IN email VARCHAR(256))
 BEGIN
-	SET autocommit = 0;
-	START TRANSACTION;
+	-- SET autocommit = 0;
+	-- START TRANSACTION;
 	INSERT INTO Patient (alias, first_name, last_name, email, province, city)
   	VALUES (alias, first_name, last_name, email, province, city);
-  	COMMIT;
+  	-- COMMIT;
 END @@
 DELIMITER ;
 
@@ -105,15 +105,15 @@ DELIMITER @@
 CREATE PROCEDURE AddFriend
 (IN requestor_alias VARCHAR(20), IN requestee_alias VARCHAR(20))
 BEGIN
-	SET autocommit = 0;
-	START TRANSACTION;
+	-- SET autocommit = 0;
+	-- START TRANSACTION;
 	IF ((requestor_alias IN (SELECT alias FROM Patient)) AND
 	(requestee_alias IN (SELECT alias FROM Patient)) AND
 	(requestee_alias != requestor_alias)) THEN
 		INSERT INTO Friendship
 		VALUES (requestor_alias, requestee_alias);
 	END IF;
-	COMMIT;
+	-- COMMIT;
 
 END @@
 DELIMITER ;
@@ -184,8 +184,8 @@ DELIMITER @@
 CREATE PROCEDURE CreateDoctor
 (IN alias VARCHAR(20), IN province VARCHAR(30), IN city VARCHAR(50), IN postal_code CHAR(6), IN street_address VARCHAR(256), IN first_name VARCHAR(100), IN last_name VARCHAR(100), IN licensed DATE, IN gender VARCHAR(20), IN specializations VARCHAR(1024))
 BEGIN
-	SET autocommit = 0;
-	START TRANSACTION;
+	-- SET autocommit = 0;
+	-- START TRANSACTION;
 	DECLARE cnt INT DEFAULT 0;
 	DECLARE split_string VARCHAR(20);
 
@@ -202,7 +202,7 @@ BEGIN
 		INSERT INTO Doc_area_specialization (alias, area)
 		VALUES (alias, split_string);
 	END LOOP do_loop;
-	COMMIT;
+	-- COMMIT;
 
 END @@
 DELIMITER ;
@@ -305,8 +305,9 @@ DELIMITER @@
 CREATE PROCEDURE CreateReview
 (IN patient_alias VARCHAR(20), IN doctor_alias VARCHAR(20), IN star_rating DECIMAL(2,1), IN comments VARCHAR(1024))
 BEGIN
-	SET autocommit = 0;
-	START TRANSACTION;
+
+	-- SET autocommit = 0;
+	-- START TRANSACTION;
 	IF (star_rating >= 0 AND star_rating <= 5 AND comments IS NOT NULL AND comments != ' ') THEN
 		INSERT INTO Review (patient, doctor, star_rating, comments, review_date)
 		VALUES (patient_alias, doctor_alias, FLOOR(star_rating * 2)/2, comments, NOW());
